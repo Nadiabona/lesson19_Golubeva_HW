@@ -7,14 +7,13 @@ def auth_required(func): #в нашем случае, будет принима�
     def wrapper(*args, **kwargs):
         if "Authorization" not in request.headers: #если нет в заголовке, кладем выход
             abort(401)
-        data = request.header("Authorization")
+        data = request.headers("Authorization")
         token = data.split("Bearer")[-1]
         try:
             jwt.decode(token, JWT_SECRET, algorithms = ["HS256"])
         except Exception as e:
             print("JWT decode error", e)
             abort(401)
-
         return func(*args, **kwargs)
         #иначе забираем authorizatioin
 
@@ -24,7 +23,8 @@ def admin_required(func):
     def wrapper(*args, **kwargs):
         if "Authorization" not in request.headers: #если нет в заголовке, кладем выход
             abort(401)
-        data = request.header("Authorization")
+
+        data = request.headers["Authorization"]
         token = data.split("Bearer")[-1]
         try:
             user = jwt.decode(token, JWT_SECRET, algorithms = ["HS256"])

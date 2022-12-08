@@ -15,10 +15,11 @@ class UserService:
     def get_all(self):
         return self.dao.get_all()
 
-    def get_by_username(self, username):
-        return self.dao.get_by_usename(username)
+    def get_by_email(self, email):
+        return self.dao.get_by_usename(email)
 
     def create(self, user_d):
+        user_d["password"] = self.make_password_hash(user_d.get("password"))
         return self.dao.create(user_d)
 
     def update(self, user_d):
