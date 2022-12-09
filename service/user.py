@@ -16,7 +16,7 @@ class UserService:
         return self.dao.get_all()
 
     def get_by_email(self, email):
-        return self.dao.get_by_usename(email)
+        return self.dao.get_by_email(email)
 
     def create(self, user_d):
         user_d["password"] = self.make_password_hash(user_d.get("password"))

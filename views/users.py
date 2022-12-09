@@ -33,7 +33,7 @@ class UpdateUserPasswordViews(Resource):
 
         if user_service.compare_password(user.password, old_password):
             user.password = user_service.make_password_hash(new_password)
-            result = UserSchema().sump(user)
+            result = UserSchema().dump(user)
             user_service.update(result)
 
         else:
@@ -44,12 +44,10 @@ class UpdateUserPasswordViews(Resource):
 
 @user_ns.route('/<int:rid>')
 class UserView(Resource):
-
     def get(self, rid):
         r = user_service.get_one(rid)
         sm_d = UserSchema().dump(r)
         return sm_d, 200
-
 
     def patch(self, rid):
         request_json = request.json

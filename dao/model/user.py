@@ -12,11 +12,11 @@ class User(db.Model):
     surname = db.Column(db.String(255))
     favorite_genre = db.Column(db.Integer, db.ForeignKey("genre.id"), nullable = False)
 
-
 class UserSchema(Schema):
     id = fields.Int()
-    username = fields.Str()
-    password = fields.Str(load_only=True) #дает возможность загружать, но нк нему нльзя обращаться, в идеале - убрить из схемы
+    email = fields.Str()
+    #password = fields.Str(load_only=True) #дает возможность загружать, но нк нему нльзя обращаться, в идеале - убрить из схемы
+    password = fields.Str()
     name = fields.Str()
     surname = fields.Str()
     favorite_genre = fields.Str()
